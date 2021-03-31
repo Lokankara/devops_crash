@@ -60,19 +60,19 @@ jobs:
         cd python/
         ls -la
 
-#     - name: Create ZIP artifacts
-#       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
-# #     - name: Copy Deployment package
-# #       run : cp ${{ env.DEPLOY_PACKAGE_NAME }}  http://${{ env.PACKAGE_PATH }}
-#     - name: git push
-#       run: |
-#        git config --global user.email "poliyakpavlo@gmail.com"
-#        git config --global user.name "PolyakPavlo" 
-#        git add ${{ env.DEPLOY_PACKAGE_NAME }}
-#        git commit -m "logparser"
-#        git status
-#        git push
-      
+    - name: Create ZIP artifacts
+      run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+
+    - name: git push
+      run: |
+       git config --global user.email "poliyakpavlo@gmail.com"
+       git config --global user.name "PolyakPavlo" 
+       git add ${{ env.DEPLOY_PACKAGE_NAME }}
+       git commit -m "logparser"
+       git status
+       git push
+#     - name: Copy Deployment package
+#       run : cp ${{ env.DEPLOY_PACKAGE_NAME }}  http://${{ env.PACKAGE_PATH }}  
 #     - name: put sftp
 #       uses: appleboy/scp-action@master
 #       with:
