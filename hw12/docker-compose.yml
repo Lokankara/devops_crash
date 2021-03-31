@@ -9,16 +9,7 @@ services:
        - ./ftp:/opt/data
        - ./ftp:/opt/app
      networks:
-       - devops_network
-     depends_on:
-        python:
-           condition: service_healthy
-     healthcheck:
-       test: ["CMD", "python", "ps.py"]
-       interval: 3s
-       timeout: 5s
-       retries: 2
-       start_period: 3s
+       - devops_network    
      
    python:
      build: ./python 
@@ -26,13 +17,7 @@ services:
      volumes: 
        - ./python:/opt/data
        - ./python:/opt/app
-     healthcheck:
-       test: ["CMD", "python", "sql_orm.py"]
-       interval: 3s
-       timeout: 5s
-       retries: 2
-       start_period: 3s
-    
+   
    nginx:
      build: ./nginx
      container_name: nginx
@@ -40,17 +25,7 @@ services:
        - "80:883"
      volumes:
        - ./nginx:/opt/app
-     depends_on:
-       python:
-         condition: service_healthy
-#      environment:
-#        - ENV=development
-#      healthcheck:
-#        test: ["CMD", "ls", "-lsa"]
-#        interval: 3s
-#        timeout: 2s
-#        retries: 5
-#        start_period: 1s
+      start_period: 1s
 
 networks:
   devops_network:
