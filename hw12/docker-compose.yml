@@ -9,31 +9,23 @@ services:
        - ./ftp:/opt/data
      networks:
        - devops_network
-     
+     depends_on:
+        python:
+           condition: service_healthy
      healthcheck:
-       test: ["CMD", "ls -la"]
+       test: ["CMD-SHELL", "ls", "-lsa"]
        interval: 3s
        timeout: 5s
        retries: 5
        start_period: 1s
-
+     
    python:
      build: ./python 
      container_name: python
      volumes: 
        - ./python:/opt/data
        - ./python:/opt/app
-     depends_on:
-       sftp:
-         condition: service_healthy
-  
-       healthcheck:
-       test: ["CMD-SHELL", "ls", "-lsa"]
-       interval: 3s
-       timeout: 5s
-       retries: 5
-       start_period: 1s
-
+    
    nginx:
      build: ./nginx
      container_name: nginx
