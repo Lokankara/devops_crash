@@ -1,39 +1,59 @@
-version: '2.3'
-
+version: "2.3"
 services:
-  sftp:
-    build: ./ftp
-    volumes:
-        - ./:/opt/data
-    ports:
+   sftp:
+     build: ./ftp
+     container_name: sftp
+     ports:
          - "223:22"
-    command: foo:pass:1001
-    
-#     healthcheck:
-#        test:  ["CMD-SHELL", "test -f /logs/logfile.log"]
-#        interval: 3s
-#        timeout: 5s
-#        retries: 10
-#        start_period: 1s
+     volumes: 
+       - ./ftp:/opt/data
+       - ./ftp:/opt/app
+     networks:
+       - devops_network
+     healthcheck:
+       test: ["CMD", "pwd"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
 
-  python:
-    build: ./python
-    volumes:
-        - ./:/opt/data/
-        - ./:/opt/app/
-    healthcheck:
-       test:  ["CMD-SHELL", "test -f /app/result/access_log_1.xlsx"]
+   python:
+     build: ./python 
+     container_name: python
+     volumes: 
+       - ./python:/opt/data
+       - ./python:/opt/app
+     depends_on:
+       sftp:
+         condition: service_healthy
+     environment:
+       - ENV=development
+     healthcheck:
+       test: ["CMD-SHELL", "test -f /opt/app/logfile.log"]
        interval: 3s
        timeout: 5s
        retries: 10
        start_period: 1s
 
-  nginx:
-    build: nginx/
-    ports:
-        - "883:80"
-    depends_on:
-      python:
-        condition: service_healthy
-    volumes: 
-       - ./html:/opt/app/
+   nginx:
+     build: ./nginx
+     container_name: nginx
+     ports:
+       - "80:883"
+     volumes:
+       - ./ftp:/opt/app
+     depends_on:
+       python:
+         condition: service_healthy
+     environment:
+       - ENV=development
+     healthcheck:
+       test: ["CMD-SHELL", "ls", "-lsa"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
+
+networks:
+  devops_network:
+    driver: bridge
