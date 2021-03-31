@@ -47,11 +47,11 @@ jobs:
       run: |
         cd hw12 && ls -la
         docker-compose up -d --force-recreate
-        cd ftp
-        python ps.py
-        pwd && ls -la
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        python sql_orm.py 
+#        cd ftp
+#        python ps.py
+#        pwd && ls -la
+#        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+#        python sql_orm.py 
 
     
  #        docker-compose up --build -d
