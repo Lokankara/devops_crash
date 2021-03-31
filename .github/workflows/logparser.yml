@@ -48,7 +48,11 @@ jobs:
         pwd
         ls -la
         cd hw12/
-        docker-compose up -d --force-recreate
+        ls -la
+        docker-compose up --build -d
+        ls -la
+
+#        docker-compose up -d --force-recreate
 
 #        python sql_orm.py
 
