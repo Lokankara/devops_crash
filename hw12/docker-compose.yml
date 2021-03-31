@@ -10,12 +10,12 @@ services:
      networks:
        - devops_network
      command: foo:pass:1001
-#      healthcheck:
-#        test: ["CMD", "test -f /data/logfile.log"]
-#        interval: 3s
-#        timeout: 5s
-#        retries: 5
-#        start_period: 1s
+     healthcheck:
+       test: ["CMD", "test -f /data/logfile.log"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
 
    python:
      build: ./python 
