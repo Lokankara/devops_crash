@@ -25,7 +25,6 @@ services:
        - "80:883"
      volumes:
        - ./nginx:/opt/app
-      start_period: 1s
 
 networks:
   devops_network:
