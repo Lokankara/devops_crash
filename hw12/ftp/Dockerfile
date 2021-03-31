@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 RUN mkdir /opt/app
 RUN mkdir /opt/data
-WORKDIR /opt/app
-VOLUME /opt/app
+WORKDIR /opt/data
+VOLUME /opt/data
 EXPOSE 223
 
 COPY start.sh /opt/app/start.sh
