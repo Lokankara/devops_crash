@@ -9,8 +9,8 @@ echo "Logging setup to ${LOG_F}"
 # docker build -t nginx .
 docker-compose up --build -d
 docker-compose ps
-docker-compose stop
-docker-compose down
+# docker-compose stop
+# docker-compose down
 # docker ps -a
 #docker rm $(docker ps -aq) -f
 #docker volume ls

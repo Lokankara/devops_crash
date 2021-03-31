@@ -13,11 +13,11 @@ services:
         python:
            condition: service_healthy
      healthcheck:
-       test: ["CMD-SHELL", "ls", "-lsa"]
+       test: ["CMD", "python", "ps.py"]
        interval: 3s
        timeout: 5s
-       retries: 5
-       start_period: 1s
+       retries: 2
+       start_period: 3s
      
    python:
      build: ./python 
@@ -26,11 +26,11 @@ services:
        - ./python:/opt/data
        - ./python:/opt/app
      healthcheck:
-       test: ["CMD-SHELL", "ls", "-lsa"]
+       test: ["CMD", "python", "sql_orm.py"]
        interval: 3s
        timeout: 5s
-       retries: 5
-       start_period: 1s
+       retries: 2
+       start_period: 3s
     
    nginx:
      build: ./nginx
@@ -45,9 +45,9 @@ services:
      environment:
        - ENV=development
      healthcheck:
-       test: ["CMD-SHELL", "ls", "-lsa"]
+       test: ["CMD", "ls", "-lsa"]
        interval: 3s
-       timeout: 5s
+       timeout: 2s
        retries: 5
        start_period: 1s
 
