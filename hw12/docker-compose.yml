@@ -25,6 +25,12 @@ services:
      volumes: 
        - ./python:/opt/data
        - ./python:/opt/app
+     healthcheck:
+       test: ["CMD-SHELL", "ls", "-lsa"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
     
    nginx:
      build: ./nginx
@@ -36,14 +42,14 @@ services:
      depends_on:
        python:
          condition: service_healthy
-#      environment:
-#        - ENV=development
-#      healthcheck:
-#        test: ["CMD-SHELL", "ls", "-lsa"]
-#        interval: 3s
-#        timeout: 5s
-#        retries: 5
-#        start_period: 1s
+     environment:
+       - ENV=development
+     healthcheck:
+       test: ["CMD-SHELL", "ls", "-lsa"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
 
 networks:
   devops_network:
