@@ -45,12 +45,13 @@ jobs:
         
     - name: docker build
       run: |
-        pwd
-        ls -la
-        cd hw12/
+        cd hw12
+        
         ls -la
         docker-compose up --build -d
-        ls -la
+        
+        cd sftp
+        python ps.py 
 
       
   sftp:
@@ -60,6 +61,7 @@ jobs:
       - run: |
           pwd && ls -la
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python sql_orm.py 
     # python -m pip install --upgrade pip
     # pip install paramiko
     # pip install pandas
