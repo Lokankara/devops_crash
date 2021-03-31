@@ -43,14 +43,14 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
-    - run: |
-        python -m pip install --upgrade pip
-        pip install paramiko
-        pip install pandas
-        pip install sqlalchemy
-        pip install openpyxl
-        python sql_orm.py
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+#     - run: |
+#         python -m pip install --upgrade pip
+#         pip install paramiko
+#         pip install pandas
+#         pip install sqlalchemy
+#         pip install openpyxl
+#         python sql_orm.py
+#         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
     - name: docker build
       run: |
