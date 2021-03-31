@@ -6,11 +6,10 @@ services:
      ports:
          - "223:22"
      volumes:
-       - ./ftp:/opt/app
        - ./ftp:/opt/data
      networks:
        - devops_network
-     command: foo:pass:1001
+     
      healthcheck:
        test: ["CMD", "ls -la"]
        interval: 3s
@@ -22,18 +21,17 @@ services:
      build: ./python 
      container_name: python
      volumes: 
-       - ./ftp:/opt/data
-       - ./ftp:/opt/app
+       - ./python:/opt/data
+       - ./python:/opt/app
      depends_on:
        sftp:
          condition: service_healthy
-     environment:
-       - ENV=development
-     healthcheck:
-       test: ["CMD", "test -f /opt/data/access.db"]
+  
+       healthcheck:
+       test: ["CMD-SHELL", "ls", "-lsa"]
        interval: 3s
        timeout: 5s
-       retries: 10
+       retries: 5
        start_period: 1s
 
    nginx:
@@ -42,7 +40,7 @@ services:
      ports:
        - "80:883"
      volumes:
-       - ./ftp:/opt/app
+       - ./nginx:/opt/app
      depends_on:
        python:
          condition: service_healthy
