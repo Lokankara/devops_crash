@@ -9,10 +9,10 @@ env:
 on:
   push:
     branches: 
-      - pavlo_polyak_25021982
+      - main
   pull_request:
     branches: 
-      - pavlo_polyak_25021982
+      - main
   workflow_dispatch:
 
 jobs:
