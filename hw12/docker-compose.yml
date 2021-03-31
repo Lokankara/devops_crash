@@ -5,13 +5,14 @@ services:
      container_name: sftp
      ports:
          - "223:22"
-     volumes: 
+     volumes:
+       - ./ftp:/opt/app
        - ./ftp:/opt/data
      networks:
        - devops_network
      command: foo:pass:1001
      healthcheck:
-       test: ["CMD", "test -f /data/logfile.log"]
+       test: ["CMD", "ls -la"]
        interval: 3s
        timeout: 5s
        retries: 5
