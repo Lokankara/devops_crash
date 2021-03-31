@@ -6,15 +6,13 @@ VOLUME /opt/app
 EXPOSE 223
 
 COPY start.sh /opt/app/start.sh
+COPY ps.py /opt/app/ps.py
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY ssh_config /etc/ssh/sshd_config
 
 RUN apt-get update -y && \
 apt-get install vsftpd -y && \
-apt-get install ftp -y && \
-apt-get install sshpass -y && \
-apt-get install systemd -y && \
-apt-get install firewalld -y
+apt-get install ftp -y
 
 RUN apt-get update && apt-get install -y \
 	openssh-server \
@@ -26,5 +24,6 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 	&& mkdir /ssh/
 
-ENTRYPOINT ["/bin/bash", "/opt/app/start.sh"]
+ENTRYPOINT ["/bin/bash", "/opt/data/start.sh"]
 
+ CMD ["/bin/bash", "/opt/data/python ps.py"]
