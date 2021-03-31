@@ -1,15 +1,15 @@
 version: '2.3'
 
 services:
-  sshpass:
-    build: sshpass/
+  sftp:
+    build: ./ftp
     volumes:
-        - ./logs:/logs
+        - ./:/opt/data
     healthcheck:
        test:  ["CMD-SHELL", "test -f /logs/logfile.log"]
        interval: 3s
        timeout: 5s
-       retries: 50
+       retries: 10
        start_period: 1s
 
   sftp:
@@ -21,15 +21,15 @@ services:
     command: foo:pass:1001
 
   python:
-    build: python/
+    build: ./python
     volumes:
-        - ./logs:/app/logs/
-        - ./result:/app/result/
+        - ./:/opt/data/
+        - ./:/opt/app/
     healthcheck:
-       test:  ["CMD-SHELL", "test -f /app/result/access.db"]
+       test:  ["CMD-SHELL", "test -f /app/result/access_log_1.xlsx"]
        interval: 3s
        timeout: 5s
-       retries: 50
+       retries: 10
        start_period: 1s
 
   nginx:
