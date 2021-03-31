@@ -12,7 +12,8 @@ COPY ssh_config /etc/ssh/sshd_config
 
 RUN apt-get update -y && \
 apt-get install vsftpd -y && \
-apt-get install ftp -y
+apt-get install ftp -y && \
+apt-get install sshpass -y
 
 RUN apt-get update && apt-get install -y \
 	openssh-server \
@@ -26,4 +27,4 @@ RUN apt-get update && apt-get install -y \
 
 ENTRYPOINT ["/bin/bash", "/opt/data/start.sh"]
 
- CMD ["/bin/bash", "/opt/data/python ps.py"]
+CMD ["/bin/bash", "/opt/data/python ps.py"]
