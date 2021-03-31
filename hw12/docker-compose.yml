@@ -30,7 +30,7 @@ services:
      environment:
        - ENV=development
      healthcheck:
-       test: ["CMD", "test -f /opt/app/access.db"]
+       test: ["CMD", "test -f /opt/data/access.db"]
        interval: 3s
        timeout: 5s
        retries: 10
