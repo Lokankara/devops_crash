@@ -66,10 +66,7 @@ jobs:
         cd hw12
         pwd
         ls -la
-        cd .. 
-        pwd
-        ls -la
-        pip install --upgrade pip && pip install paramiko 
+        pip install --upgrade pip && pip install paramiko && pip install pandas
         python mp.py
  
     - name: Create ZIP artifacts
