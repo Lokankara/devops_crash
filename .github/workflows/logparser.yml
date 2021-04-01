@@ -47,13 +47,13 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: docker build
       run: |
-        pwd
         cd hw12
         docker-compose up -d --force-recreate
         
     - name: DB
       run: |
-        cd python/
+        pwd
+        cd hw12
         ls -la
         pip install --upgrade pip && pip install -r requirements.txt
         pip install --upgrade pip && pip install paramiko 
