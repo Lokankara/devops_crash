@@ -50,9 +50,12 @@ jobs:
         pwd
         cd hw12
         docker-compose up -d --force-recreate
+        
+    - name: DB
+      run: |
         cd python/
         ls -la
-        
+        python sql_orm.py
     - name: Create ZIP artifacts
       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
 
