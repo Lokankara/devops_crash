@@ -64,7 +64,7 @@ jobs:
       with:
         host: ${{ env.HOST }}
         username: ${{ env.USER }}
-        key: ${{ env.KEY }}
+        key: ${{ env.SSH_PRIVATE_KEY }}
         port: ${{ env.PORT }}
         source: "./"
         target: "/home/testuser/pavlo_polyak/"
