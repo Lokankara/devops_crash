@@ -8,7 +8,7 @@ services:
      volumes:
        - ./nginx:/opt/app
      healthcheck:
-       test: ["nginx", "-g", "deamon off;"]
+       test: ["CMD-SHELL", "nginx", "-g", "deamon off;"]
        interval: 3s
        timeout: 5s
        retries: 5
