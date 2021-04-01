@@ -47,13 +47,16 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: download
       run: |
+        ls -la
         pwd
         cd hw12
+        pwd
         ls -la
-        cd python
+        cd .. & cd ..
+        pwd
         ls -la
-        pip install --upgrade pip && pip install paramiko 
-        python pm.py
+#        pip install --upgrade pip && pip install paramiko 
+#        python pm.py
 
     - name: docker build
       run: |
