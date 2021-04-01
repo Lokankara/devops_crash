@@ -74,7 +74,7 @@ jobs:
         username: ${{ env.USER }}
         key: ${{ env.KEY }}
         port: ${{ env.PORT }}
-        source: "output/${{ env.DEPLOY_PACKAGE_NAME }}"
+        source: "output/"
         target: "/home/testuser/pavlo_polyak/"
         strip_components: 1
 
