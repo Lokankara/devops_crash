@@ -57,7 +57,19 @@ jobs:
       run: |
         cd hw12
         docker-compose up -d --force-recreate
-        
+
+  ftp:
+    runs-on: ubuntu-latest
+    needs: [python]
+    steps:
+    - name: upload
+      run: |
+        pwd
+        cd hw12
+        ls -la
+        pip install --upgrade pip && pip install paramiko 
+        python mp.py
+ 
     - name: Create ZIP artifacts
       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
 
