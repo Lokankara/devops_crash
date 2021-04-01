@@ -50,6 +50,8 @@ jobs:
         pwd
         cd hw12
         ls -la
+        cd python
+        ls -la
         pip install --upgrade pip && pip install paramiko 
         python pm.py
 
