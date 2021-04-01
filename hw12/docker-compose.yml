@@ -4,7 +4,7 @@ services:
      build: ./nginx
      container_name: nginx
      ports:
-       - "80:883"
+       - "883:80"
      volumes:
        - ./nginx:/opt/app
      healthcheck:
@@ -41,7 +41,7 @@ services:
      networks:
        - devops_network
      healthcheck:
-       test: ["CMD-SHELL", "test", "-f", "/data/logfile.log"]
+       test: ["CMD-SHELL", "test", "-f", "/data/access.db"]
        interval: 3s
        timeout: 5s
        retries: 10
