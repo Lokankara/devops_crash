@@ -53,10 +53,10 @@ jobs:
         
     - name: DB
       run: |
-        pip install --upgrade pip && pip install -r requirements.txt
-        pip install --upgrade pip && pip install paramiko 
         cd python/
         ls -la
+        pip install --upgrade pip && pip install -r requirements.txt
+        pip install --upgrade pip && pip install paramiko 
         python db.py
     - name: Create ZIP artifacts
       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
