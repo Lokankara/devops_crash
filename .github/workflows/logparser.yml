@@ -1,4 +1,4 @@
-name: Pavlo_polyak_25021982
+name: Pavlo_Polyak_25021982
 
 env:
   PACK_NAME: "docker-compose ${{ github.sha }}"
