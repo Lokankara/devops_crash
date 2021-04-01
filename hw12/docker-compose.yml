@@ -25,7 +25,7 @@ services:
      networks:
        - devops_network
      healthcheck:
-       test: ["CMD", "test", "-f", "/opt/data/logfile.log"]
+       test: ["CMD-SHELL", "test", "-f", "/opt/data/logfile.log"]
        interval: 3s
        timeout: 5s
        retries: 10
