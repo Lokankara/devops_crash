@@ -7,5 +7,5 @@ VOLUME /opt/app
 RUN pip install --upgrade pip && pip install -r requirements.txt
 RUN pip install --upgrade pip && pip install paramiko
 
-ENTRYPOINT ["python", "sql_orm.py"]
-# CMD ["python", "api.py"]
+CMD ["python", "sql_orm.py", "logfile.log"]
+# ENTRYPOINT ["python", "api.py"]
