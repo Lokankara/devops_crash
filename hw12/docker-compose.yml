@@ -20,12 +20,12 @@ services:
      ports:
          - "223:22"
      volumes: 
-       - ./data:/opt/data
-       - ./nginx:/opt/app
+       - ./sftp:/opt/data
+       - ./sftp:/opt/app
      networks:
        - devops_network
      healthcheck:
-       test: ["CMD-SHELL", "test", "-f", "/opt/data/logfile.log"]
+       test: ["CMD-SHELL", "test", "-f", "logfile.log"]
        interval: 3s
        timeout: 5s
        retries: 10
@@ -37,11 +37,11 @@ services:
      ports:
        - "5050:5050"
      volumes: 
-       - ./data:/opt/data
+       - ./python:/opt/app
      networks:
        - devops_network
      healthcheck:
-       test: ["CMD", "python", "sql_core.py"]
+       test: ["CMD-SHELL", "python", "sql_core.py"]
        interval: 3s
        timeout: 5s
        retries: 10
