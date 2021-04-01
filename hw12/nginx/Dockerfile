@@ -1,8 +1,6 @@
 FROM debian:buster-slim
 
-COPY . /opt
-WORKDIR /opt/app
-VOLUME /opt/app
+COPY . /opt/
 
 RUN apt-get update && apt-get install -y \
   nginx \

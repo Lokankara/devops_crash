@@ -1,0 +1,178 @@
+Logging setup to docker.log
+The Docker Engine you're using is running in swarm mode.
+
+Compose does not use swarm mode to deploy services to multiple nodes in a swarm. All containers will be scheduled on the current node.
+
+To deploy your application across the swarm, use `docker stack deploy`.
+
+Building python
+Step 1/9 : FROM python:3-slim
+ ---> 972ef8de24a4
+Step 2/9 : COPY api.py /opt/app/api.py
+ ---> Using cache
+ ---> 12775656de88
+Step 3/9 : COPY sql_orm.py /opt/app/sql_orm.py
+ ---> 339fabf1aa20
+Step 4/9 : COPY requirements.txt /opt/app/requirements.txt
+ ---> b9af55d07176
+Step 5/9 : WORKDIR /opt/app
+ ---> Running in c5d84ccbbfb0
+Removing intermediate container c5d84ccbbfb0
+ ---> 8be194563974
+Step 6/9 : VOLUME /opt/app
+ ---> Running in afab8c0ab438
+Removing intermediate container afab8c0ab438
+ ---> 5c6165d8a5d5
+Step 7/9 : RUN pip install --upgrade pip && pip install -r requirements.txt
+ ---> Running in 80089c89bec8
+Requirement already satisfied: pip in /usr/local/lib/python3.9/site-packages (21.0.1)
+Collecting pandas
+  Downloading pandas-1.2.3-cp39-cp39-manylinux1_x86_64.whl (9.7 MB)
+Collecting sqlalchemy
+  Downloading SQLAlchemy-1.4.4-cp39-cp39-manylinux2014_x86_64.whl (1.5 MB)
+Collecting openpyxl
+  Downloading openpyxl-3.0.7-py2.py3-none-any.whl (243 kB)
+Collecting Flask==0.12
+  Downloading Flask-0.12-py2.py3-none-any.whl (82 kB)
+Collecting flask-restful==0.3.5
+  Downloading Flask_RESTful-0.3.5-py2.py3-none-any.whl (24 kB)
+Collecting itsdangerous>=0.21
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting click>=2.0
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting Werkzeug>=0.7
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting Jinja2>=2.4
+  Downloading Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+Collecting pytz
+  Downloading pytz-2021.1-py2.py3-none-any.whl (510 kB)
+Collecting six>=1.3.0
+  Downloading six-1.15.0-py2.py3-none-any.whl (10 kB)
+Collecting aniso8601>=0.82
+  Downloading aniso8601-9.0.1-py2.py3-none-any.whl (52 kB)
+Collecting MarkupSafe>=0.23
+  Downloading MarkupSafe-1.1.1-cp39-cp39-manylinux2010_x86_64.whl (32 kB)
+Collecting et-xmlfile
+  Downloading et_xmlfile-1.0.1.tar.gz (8.4 kB)
+Collecting numpy>=1.16.5
+  Downloading numpy-1.20.2-cp39-cp39-manylinux2010_x86_64.whl (15.4 MB)
+Collecting python-dateutil>=2.7.3
+  Downloading python_dateutil-2.8.1-py2.py3-none-any.whl (227 kB)
+Collecting greenlet!=0.4.17
+  Downloading greenlet-1.0.0-cp39-cp39-manylinux2010_x86_64.whl (163 kB)
+Building wheels for collected packages: et-xmlfile
+  Building wheel for et-xmlfile (setup.py): started
+  Building wheel for et-xmlfile (setup.py): finished with status 'done'
+  Created wheel for et-xmlfile: filename=et_xmlfile-1.0.1-py3-none-any.whl size=8913 sha256=63ec2faf93a486c391679e6b121a7c7a28835f0f8bfccbcef90e65bfb5827267
+  Stored in directory: /root/.cache/pip/wheels/bb/9b/ff/8fdf015c95a57224237bf88fbb9e45237cbe8177213bc13732
+Successfully built et-xmlfile
+Installing collected packages: MarkupSafe, Werkzeug, six, Jinja2, itsdangerous, click, pytz, python-dateutil, numpy, greenlet, Flask, et-xmlfile, aniso8601, sqlalchemy, pandas, openpyxl, flask-restful
+Successfully installed Flask-0.12 Jinja2-2.11.3 MarkupSafe-1.1.1 Werkzeug-1.0.1 aniso8601-9.0.1 click-7.1.2 et-xmlfile-1.0.1 flask-restful-0.3.5 greenlet-1.0.0 itsdangerous-1.1.0 numpy-1.20.2 openpyxl-3.0.7 pandas-1.2.3 python-dateutil-2.8.1 pytz-2021.1 six-1.15.0 sqlalchemy-1.4.4
+Removing intermediate container 80089c89bec8
+ ---> a8fcf341707f
+Step 8/9 : RUN pip install --upgrade pip && pip install paramiko
+ ---> Running in caf5e7c7ae92
+Requirement already satisfied: pip in /usr/local/lib/python3.9/site-packages (21.0.1)
+Collecting paramiko
+  Downloading paramiko-2.7.2-py2.py3-none-any.whl (206 kB)
+Collecting bcrypt>=3.1.3
+  Downloading bcrypt-3.2.0-cp36-abi3-manylinux2010_x86_64.whl (63 kB)
+Collecting cryptography>=2.5
+  Downloading cryptography-3.4.7-cp36-abi3-manylinux2014_x86_64.whl (3.2 MB)
+Collecting pynacl>=1.0.1
+  Downloading PyNaCl-1.4.0-cp35-abi3-manylinux1_x86_64.whl (961 kB)
+Collecting cffi>=1.1
+  Downloading cffi-1.14.5-cp39-cp39-manylinux1_x86_64.whl (406 kB)
+Requirement already satisfied: six>=1.4.1 in /usr/local/lib/python3.9/site-packages (from bcrypt>=3.1.3->paramiko) (1.15.0)
+Collecting pycparser
+  Downloading pycparser-2.20-py2.py3-none-any.whl (112 kB)
+Installing collected packages: pycparser, cffi, pynacl, cryptography, bcrypt, paramiko
+Successfully installed bcrypt-3.2.0 cffi-1.14.5 cryptography-3.4.7 paramiko-2.7.2 pycparser-2.20 pynacl-1.4.0
+Removing intermediate container caf5e7c7ae92
+ ---> af4d38a31dbc
+Step 9/9 : ENTRYPOINT ["python", "sql_orm.py"]
+ ---> Running in 40446cc0f203
+Removing intermediate container 40446cc0f203
+ ---> 0073a1f12e82
+
+Successfully built 0073a1f12e82
+Successfully tagged pro_python:latest
+Building nginx
+Step 1/6 : FROM debian:buster-slim
+ ---> 2d7852f97729
+Step 2/6 : COPY . /opt/
+ ---> Using cache
+ ---> 40e12decf828
+Step 3/6 : RUN apt-get update && apt-get install -y   nginx   && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 478163eb12bd
+Step 4/6 : COPY custom.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 143b940bd917
+Step 5/6 : EXPOSE 80
+ ---> Using cache
+ ---> e6153c558bdf
+Step 6/6 : CMD ["nginx","-g","daemon off;"]
+ ---> Using cache
+ ---> f2c59fcd8b5d
+
+Successfully built f2c59fcd8b5d
+Successfully tagged pro_nginx:latest
+Building sftp
+Step 1/14 : FROM ubuntu:18.04
+ ---> 3339fde08fc3
+Step 2/14 : RUN mkdir /opt/app
+ ---> Using cache
+ ---> 26443fcd9d9b
+Step 3/14 : RUN mkdir /opt/data
+ ---> Using cache
+ ---> c2742d8c0d25
+Step 4/14 : WORKDIR /opt/data
+ ---> Using cache
+ ---> 47ed62b5c46e
+Step 5/14 : VOLUME /opt/data
+ ---> Using cache
+ ---> 1028fd4c927c
+Step 6/14 : EXPOSE 223
+ ---> Using cache
+ ---> f29218ab0209
+Step 7/14 : COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> Using cache
+ ---> df67f6da2c2e
+Step 8/14 : RUN mkdir /var/run/sshd &&     mkdir /root/.ssh
+ ---> Using cache
+ ---> 127218815937
+Step 9/14 : RUN apt-get update &&     apt-get install -y openssh-server
+ ---> Using cache
+ ---> 443d7662cce4
+Step 10/14 : RUN echo 'root:root' |chpasswd
+ ---> Using cache
+ ---> ad8fca9b9fdc
+Step 11/14 : RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+ ---> Using cache
+ ---> 0a2577cb166a
+Step 12/14 : RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+ ---> Using cache
+ ---> 2e180c137ccf
+Step 13/14 : RUN apt-get clean &&     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> 1d9407160a37
+Step 14/14 : CMD ["/usr/sbin/sshd", "-D"]
+ ---> Using cache
+ ---> d5949a06b80a
+
+Successfully built d5949a06b80a
+Successfully tagged pro_sftp:latest
+nginx is up-to-date
+Recreating python ... 
+Recreating python
+sftp is up-to-date
+[1A[2KRecreating python ... [32mdone[0m[1B Name          Command          State              Ports            
+--------------------------------------------------------------------
+nginx    nginx -g daemon off;   Up      80/tcp, 0.0.0.0:80->883/tcp 
+python   python sql_orm.py      Up      0.0.0.0:5050->5050/tcp      
+sftp     /usr/sbin/sshd -D      Up      0.0.0.0:223->22/tcp, 223/tcp
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS                            PORTS                          NAMES
+a482d998787b   pro_python   "python sql_orm.py"      8 seconds ago   Up 5 seconds (health: starting)   0.0.0.0:5050->5050/tcp         python
+7200468606cf   pro_sftp     "/usr/sbin/sshd -D"      7 minutes ago   Up 7 minutes                      223/tcp, 0.0.0.0:223->22/tcp   sftp
+ec418a09ccae   pro_nginx    "nginx -g 'daemon of…"   7 minutes ago   Up 7 minutes                      80/tcp, 0.0.0.0:80->883/tcp    nginx

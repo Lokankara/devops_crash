@@ -1,36 +1,52 @@
 version: "2.3"
 services:
-   sftp:
-     build: ./ftp
-     container_name: sftp
-     ports:
-         - "223:22"
-     volumes: 
-       - ./ftp:/opt/data
-       - ./ftp:/opt/app
-     networks:
-       - devops_network
-     healthcheck:
-       test: ["CMD", "python", "--version"]
-       interval: 3s
-       timeout: 5s
-       retries: 5
-       start_period: 1s
-
-   python:
-     build: ./python 
-     container_name: python
-     volumes: 
-       - ./python:/opt/data
-       - ./python:/opt/app
-
    nginx:
      build: ./nginx
      container_name: nginx
      ports:
        - "80:883"
      volumes:
-       - ./ftp:/opt/app
+       - ./nginx:/opt/app
+     healthcheck:
+       test: ["nginx", "-g", "deamon off;"]
+       interval: 3s
+       timeout: 5s
+       retries: 5
+       start_period: 1s
+
+   sftp:
+     build: ./ftp
+     container_name: sftp
+     ports:
+         - "223:22"
+     volumes: 
+       - ./data:/opt/data
+       - ./nginx:/opt/app
+     networks:
+       - devops_network
+     healthcheck:
+       test: ["CMD", "test", "-f", "/opt/data/logfile.log"]
+       interval: 3s
+       timeout: 5s
+       retries: 10
+       start_period: 1s
+
+   python:
+     build: ./python 
+     container_name: python
+     ports:
+       - "5050:5050"
+     volumes: 
+       - ./data:/opt/data
+     networks:
+       - devops_network
+     healthcheck:
+       test: ["CMD", "python", "sql_core.py"]
+       interval: 3s
+       timeout: 5s
+       retries: 10
+       start_period: 1s
+
 
 networks:
   devops_network:
