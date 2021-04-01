@@ -41,7 +41,7 @@ services:
      networks:
        - devops_network
      healthcheck:
-       test: ["CMD-SHELL", "python", "sql_core.py"]
+       test: ["CMD-SHELL", "python", "sql_orm.py"]
        interval: 3s
        timeout: 5s
        retries: 10
